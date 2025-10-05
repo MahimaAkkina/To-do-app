@@ -1,7 +1,3 @@
 ul > li {
   list-style-type: decimal;
 }
-.completed {
-  text-decoration: line-through;
-  color: gray;
-}

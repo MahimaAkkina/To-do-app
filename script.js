@@ -23,7 +23,7 @@ function taskfun() {
   ele.textContent = inp;
   list.appendChild(ele);
 
-  ar.push(inp);             // store the task text
-  inpEl.value = "";         // clear input
+  ar.push(inp);             // it stores the task text
+  inpEl.value = "";         // it clears the input
   inpEl.focus();            // put cursor back in the input
 }
