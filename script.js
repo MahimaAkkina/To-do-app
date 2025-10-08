@@ -75,3 +75,19 @@ function taskfun(){
       taskfun();
     }
   }
+//Filtering Tasks
+function filterTasks(type){
+  const listItems=document.querySelectorAll('#list li'); //select the items in list
+  listItems.forEach(li => {
+    const span = li.querySelector('span');
+    const isCompleted = span.classList.contains('text-decoration-line-through'); //iscompleted like boolean value.. checks cond true or false
+
+    if(type==='all'){
+      li.style.display='flex';
+    }else if(type==='active'){
+      li.style.display=isCompleted ? 'none' : 'flex';
+    } else if(type==='completed'){
+      li.style.display=isCompleted ? 'flex' : 'none';
+    }
+  });
+}

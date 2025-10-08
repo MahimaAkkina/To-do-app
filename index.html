@@ -17,6 +17,12 @@
         <input type="text" class="form-control w-25" id="task" onkeydown="checkEnter(event)" />
         <button class="btn btn-primary ms-3" onclick="taskfun()">Add Task</button>
     </div>
+    <div class="mb-3">
+        <button class="btn btn-outline-light btn-sm me-2" onclick="filterTasks('all')">All</button>
+        <button class="btn btn-outline-light btn-sm me-2" onclick="filterTasks('active')">Active</button>
+        <button class="btn btn-outline-light btn-sm" onclick="filterTasks('completed')">Completed</button>
+    </div>
+
     <ul id="list" class="text-white p-2 ps-2"></ul>
   </div>
   <script src="script.js"></script>
