@@ -3,6 +3,7 @@ ul, ul li {
 }
 .main{
   background-color:black;
+  font-family: 'Geneva';
 }
 .main h2{
   border: 3px solid yellow;

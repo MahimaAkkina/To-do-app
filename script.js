@@ -21,8 +21,10 @@ function taskfun(){
 
   //creating list items
   const listEle=document.createElement('li');
-  listEle.className="d-flex w-50 justify-content-between align-items-center mb-2 p-2 rounded-4";
+  listEle.className="mb-2 p-2 rounded-4";
   
+  const innerDiv = document.createElement('div');
+  innerDiv.className = "d-flex w-50 justify-content-between align-items-center";
   // creating span for text
   const span=document.createElement('span');
   span.textContent=inp;
@@ -40,9 +42,10 @@ function taskfun(){
   buttons.appendChild(btnComplete);
   buttons.appendChild(btnDelete);
 
-  listEle.appendChild(span);
-  listEle.appendChild(buttons);
+  innerDiv.appendChild(span);
+  innerDiv.appendChild(buttons);
 
+  listEle.appendChild(innerDiv);
   list.appendChild(listEle);
 
 
