@@ -65,5 +65,13 @@ function taskfun(){
     list.removeChild(listEle); //removes from array
     ar=ar.filter(t=>t!==inp); 
   });
+
+  
 }
 
+//Allowing Enter key to add task
+  function checkEnter(event){
+    if(event.key==="Enter"){
+      taskfun();
+    }
+  }
