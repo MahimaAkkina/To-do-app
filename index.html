@@ -9,14 +9,15 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="m-5 p-3 bg-dark text-white">
-    <h2>To Do List</h2>
+    <div class="m-5 p-4 main text-white rounded-5 text-center">
+    <h2 class="d-inline-block px-3 py-1 mb-4 rounded-3">To Do List</h2>
+    <br>
     <label for="task" class="form-label">Add your Task List</label>
     <div class="d-flex">
-        <input type="text" class="form-control w-50" id="task">
+        <input type="text" class="form-control w-25" id="task">
         <button class="btn btn-primary ms-3" onclick="taskfun()">Add</button>
     </div>
-    <ul id="list" class="bg-dark text-white p-2 ps-2"></ul>
+    <ul id="list" class="text-white p-2 ps-2"></ul>
   </div>
   <script src="script.js"></script>
 </body>

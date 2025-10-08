@@ -1,27 +1,50 @@
 let ar = [];
-function taskfun() {
+function taskfun(){
   const inpEl = document.getElementById('task');
   const raw = inpEl.value;
   const inp = raw.trim(); // remove extra spaces
   const list = document.getElementById('list');
 
-  if (inp === "") {
+  if (inp==="") {
     alert("Enter your Task");
     inpEl.focus();
     return;
   }
 
-  // case-insensitive duplicate words check
-  const exists = ar.some(t => t.toLowerCase() === inp.toLowerCase());
+// case-insensitive duplicate words check
+  const exists = ar.some(t => t.toLowerCase() === inp.toLowerCase()); // function for duplicate and case-insensitive
   if (exists) {
     alert("Task already exists!");
     inpEl.focus();
     return;
   }
 
-  const ele = document.createElement('li');
-  ele.textContent = inp;
-  list.appendChild(ele);
+  //creating list items
+  const listEle=document.createElement('li');
+  listEle.className="d-flex w-50 justify-content-between align-items-center mb-2 p-2 rounded-4";
+  
+  // creating span for text
+  const span=document.createElement('span');
+  span.textContent=inp;
+
+  //Creating buttons
+  const buttons=document.createElement('div');
+  const btnComplete=document.createElement('button');
+  btnComplete.textContent="Complete";
+  btnComplete.className="btn btn-success btn-sm me-2"
+
+  const btnDelete=document.createElement('button');
+  btnDelete.textContent="Delete";
+  btnDelete.className="btn btn-danger btn-sm"
+
+  buttons.appendChild(btnComplete);
+  buttons.appendChild(btnDelete);
+
+  listEle.appendChild(span);
+  listEle.appendChild(buttons);
+
+  list.appendChild(listEle);
+
 
   ar.push(inp);             // it stores the task text
   inpEl.value = "";         // it clears the input
