@@ -23,8 +23,10 @@ function taskfun(){
   const listEle=document.createElement('li');
   listEle.className="mb-2 p-2 rounded-4";
   
+
   const innerDiv = document.createElement('div');
   innerDiv.className = "d-flex w-50 justify-content-between align-items-center";
+  
   // creating span for text
   const span=document.createElement('span');
   span.textContent=inp;
@@ -52,4 +54,16 @@ function taskfun(){
   ar.push(inp);             // it stores the task text
   inpEl.value = "";         // it clears the input
   inpEl.focus();            // put cursor back in the input
+
+  // Complete button functionality
+  btnComplete.addEventListener('click',function(){
+    span.classList.toggle('text-decoration-line-through'); //strikes it 
+  });
+
+  // Deletd button functionality
+  btnDelete.addEventListener('click',function(){
+    list.removeChild(listEle); //removes from array
+    ar=ar.filter(t=>t!==inp); 
+  });
 }
+
