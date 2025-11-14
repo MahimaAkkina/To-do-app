@@ -1,73 +1,73 @@
-let ar = [];
-function taskfun(){
-  const inpEl = document.getElementById('task');
-  const raw = inpEl.value;
-  const inp = raw.trim(); // remove extra spaces
-  const list = document.getElementById('list');
+// Fetch and render tasks from backend
+async function fetchTasks(){
+  const res=await fetch("http://localhost:4000/items");
+  const tasks=await res.json();
+  tasks.forEach(renderTask);
+}
 
-  if (inp==="") {
-    alert("Enter your Task");
-    inpEl.focus();
-    return;
-  }
-
-// case-insensitive duplicate words check
-  const exists = ar.some(t => t.toLowerCase() === inp.toLowerCase()); // function for duplicate and case-insensitive
-  if (exists) {
-    alert("Task already exists!");
-    inpEl.focus();
-    return;
-  }
-
-  //creating list items
+function renderTask(task){
+  const list=document.getElementById("list");
   const listEle=document.createElement('li');
   listEle.className="mb-2 p-2 rounded-4";
-  
-
   const innerDiv = document.createElement('div');
   innerDiv.className = "d-flex w-50 justify-content-between align-items-center";
-  
-  // creating span for text
+    // creating span for text
   const span=document.createElement('span');
-  span.textContent=inp;
-
+  span.textContent=task.text;
+  if(task.status) span.classList.add("text-decoration-line-through");
   //Creating buttons
   const buttons=document.createElement('div');
   const btnComplete=document.createElement('button');
   btnComplete.textContent="Complete";
-  btnComplete.className="btn btn-success btn-sm me-2"
+  btnComplete.className="btn btn-success btn-sm me-2";
+  btnComplete.addEventListener("click",async()=>{
+    const res=await fetch(`http://localhost:4000/items/${task._id}`,{
+      method:"PUT",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({status:!task.status}),
+    });
 
+    const updated=await res.json();
+    task.status=updated.status;
+    span.classList.toggle("text-decoration-line-through");
+  });
   const btnDelete=document.createElement('button');
   btnDelete.textContent="Delete";
-  btnDelete.className="btn btn-danger btn-sm"
+  btnDelete.className="btn btn-danger btn-sm";
+  btnDelete.addEventListener("click",async()=>{
+    await fetch(`http://localhost:4000/items/${task._id}`,{method:"DELETE"});
+    list.removeChild(listEle);
+  });
 
   buttons.appendChild(btnComplete);
   buttons.appendChild(btnDelete);
-
   innerDiv.appendChild(span);
   innerDiv.appendChild(buttons);
 
   listEle.appendChild(innerDiv);
   list.appendChild(listEle);
-
-
-  ar.push(inp);             // it stores the task text
-  inpEl.value = "";         // it clears the input
-  inpEl.focus();            // put cursor back in the input
-
-  // Complete button functionality
-  btnComplete.addEventListener('click',function(){
-    span.classList.toggle('text-decoration-line-through'); //strikes it 
-  });
-
-  // Deletd button functionality
-  btnDelete.addEventListener('click',function(){
-    list.removeChild(listEle); //removes from array
-    ar=ar.filter(t=>t!==inp); 
-  });
-
-  
 }
+// Add new task
+async function taskfun() {
+  const inpEl = document.getElementById("task");
+  const text=inpEl.value.trim();
+  if(!text){
+    alert("Enter your Task");
+    inpEl.focus();
+    return;
+  }
+  const res = await fetch("http://localhost:4000/items", {
+    method:"POST",
+    headers:{"Content-Type": "application/json"},
+    body:JSON.stringify({text:text}),
+  });
+
+  const newTask = await res.json();
+  renderTask(newTask);
+  inpEl.value = "";
+  inpEl.focus();
+}
+  
 
 //Allowing Enter key to add task
   function checkEnter(event){
@@ -91,3 +91,5 @@ function filterTasks(type){
     }
   });
 }
+
+fetchTasks(); //func used to load all tasks from backend
