@@ -2,6 +2,8 @@
 
 let allTasks = []; // stores all tasks from backend
 
+const BASE_URL = "https://to-do-app-vk8c.onrender.com"; 
+
 
 
 
@@ -94,7 +96,7 @@ async function taskfun() {
     alert("Task already exists! Enter a new task.");
     return;
   }
-  
+
   const res = await fetch("http://localhost:4000/items", {
     //await wait until backend creates the item
 
