@@ -12,7 +12,7 @@ const BASE_URL = "https://to-do-app-vk8c.onrender.com";
 //aync/await let us write asynchronous code like synchronous code
 
 async function fetchTasks(){ 
-  const res=await fetch("http://localhost:4000/items");
+  const res=await fetch(`${BASE_URL}/items`);
   const tasks=await res.json();
   allTasks = tasks; //storing tasks in array
   tasks.forEach(renderTask);
@@ -46,7 +46,7 @@ function renderTask(task){
     //await waits untils it updates the server
     //stringfy: chnages object to string (bcoz the server only accepts string format not objects)
 
-    const res=await fetch(`http://localhost:4000/items/${task._id}`,{ 
+    const res=await fetch(`${BASE_URL}/items/${task._id}`,{ 
       method:"PUT", //put updates our request, so updates status
       headers:{"Content-Type":"application/json"}, //telling to backend: I am sending JSON data
       body:JSON.stringify({status:!task.status}), //toggle status, so clicking completed swiches the task's status
@@ -65,7 +65,7 @@ function renderTask(task){
   btnDelete.addEventListener("click",async()=>{ 
 
     //await waits until the server deletes the item
-    await fetch(`http://localhost:4000/items/${task._id}`,{method:"DELETE"}); //asking server to delete that specific item from db
+    await fetch(`${BASE_URL}/items/${task._id}`,{method:"DELETE"}); //asking server to delete that specific item from db
     list.removeChild(listEle); //after deletion at backend then this runs
   });
 
@@ -97,7 +97,7 @@ async function taskfun() {
     return;
   }
 
-  const res = await fetch("http://localhost:4000/items", {
+  const res = await fetch(`${BASE_URL}/items`, {
     //await wait until backend creates the item
 
     method:"POST", //creating new item on server
