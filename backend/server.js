@@ -1,21 +1,19 @@
 import express from "express"; //const express=require('express'); - It is old style 
 import cors from "cors";
 import mongoose from "mongoose";
-
 import path from "path";
 import { fileURLToPath } from "url";
+
+const app = express();   // app should be created first
+app.use(cors());
+app.use(express.json());
 
 // For __dirname in ES Modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Serve frontend
+// Serve frontend (index.html, script.js)
 app.use(express.static(path.join(__dirname, "..")));
-
-
-const app=express();
-app.use(cors());
-app.use(express.json()); //used to read json format
 
 //connecting with mongodb
 const url="mongodb+srv://mahimaakkina_db_user:GodisLove%40143@cluster0.l6kxe98.mongodb.net/TodoTask";
