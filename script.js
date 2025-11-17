@@ -1,3 +1,10 @@
+//to check duplicates
+
+let allTasks = []; // stores all tasks from backend
+
+
+
+
 // Fetch and render tasks from backend
 //forEach is a array method - running a function for every item in the array.
 //aync/await let us write asynchronous code like synchronous code
@@ -5,6 +12,7 @@
 async function fetchTasks(){ 
   const res=await fetch("http://localhost:4000/items");
   const tasks=await res.json();
+  allTasks = tasks; //storing tasks in array
   tasks.forEach(renderTask);
 }
 
@@ -79,6 +87,14 @@ async function taskfun() {
     inpEl.focus(); //cursor on input field
     return;
   }
+
+   //Duplicates Check
+  const isDup=allTasks.some(t => t.text.toLowerCase() === text.toLowerCase());
+  if (isDup) {
+    alert("Task already exists! Enter a new task.");
+    return;
+  }
+  
   const res = await fetch("http://localhost:4000/items", {
     //await wait until backend creates the item
 
